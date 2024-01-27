@@ -1,19 +1,18 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-
+import { View } from "react-native";
+import { SafeAreaView } from "react-native";
+import { Text } from "react-native";
+import { StyleSheet } from "react-native";
+//Screens to Import
+import LandingPage from "./screens/LandingPage";
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Github setup</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <LandingPage />;
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
   },
