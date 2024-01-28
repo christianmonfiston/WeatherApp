@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native";
 import { Image } from "react-native";
+import { Pressable } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 export default function LandingPage() {
   return (
@@ -21,6 +23,11 @@ export default function LandingPage() {
           <Text style={{ color: "white", fontSize: 15 }}>
             Start now and learn more about
           </Text>
+          <Pressable style={styles.button}>
+            <TouchableOpacity>
+              <Text style={{ color: "white" }}>Get Started</Text>
+            </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </SafeAreaView>
@@ -62,6 +69,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     flexDirection: "column",
+    paddingVertical: 125,
   },
 
   displayOne: {
@@ -73,5 +81,12 @@ const styles = StyleSheet.create({
   image: {
     width: 100,
     height: 100,
+  },
+
+  button: {
+    backgroundColor: "white",
+    width: 200,
+    height: 40,
+    borderRadius: 40,
   },
 });
