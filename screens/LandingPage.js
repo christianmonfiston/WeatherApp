@@ -14,20 +14,24 @@ export default function LandingPage() {
             source={require("../images/sunicon.png")}
           />
           <Text style={styles.degreeDisplay}>18&#8451;</Text>
-          <Text style={{ color: "white" }}>New York, NY</Text>
+          <Text style={{ color: "#7B71EC" }}>New York, NY</Text>
         </View>
         <View style={styles.textDisplay}>
-          <Text style={styles.displayOne}>
-            Know everything{"\n"}about the weather
-          </Text>
-          <Text style={{ color: "white", fontSize: 15 }}>
-            Start now and learn more about
-          </Text>
-          <Pressable style={styles.button}>
-            <TouchableOpacity>
-              <Text style={{ color: "white" }}>Get Started</Text>
-            </TouchableOpacity>
+          <View style={styles.firstTextMessage}>
+            <Text style={styles.displayOne}>Know everything</Text>
+            <Text style={styles.displayTwo}>about the weather</Text>
+          </View>
+
+          <Text style={styles.displayText}>Start now and learn more about</Text>
+          <Text style={styles.displayText}>local weather instantly</Text>
+        </View>
+        <TouchableOpacity style={styles.button}>
+          <Pressable>
+            <Text style={styles.buttonText}>Get Started</Text>
           </Pressable>
+        </TouchableOpacity>
+        <View>
+          <Text style={styles.displayText}> Already have an account?</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -69,10 +73,18 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    paddingVertical: 125,
+    paddingVertical: 15,
+    paddingBottom: 105,
   },
 
   displayOne: {
+    color: "white",
+    fontSize: 30,
+    fontWeight: "bold",
+    padding: 20,
+  },
+
+  displayTwo: {
     color: "white",
     fontSize: 30,
     fontWeight: "bold",
@@ -85,8 +97,29 @@ const styles = StyleSheet.create({
 
   button: {
     backgroundColor: "white",
-    width: 200,
-    height: 40,
+    width: 250,
+    height: 50,
     borderRadius: 40,
+    backgroundColor: "#7B71EC",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    //paddingVertical: 10,
+    marginVertical: 5,
+  },
+
+  buttonText: {
+    color: "white",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+  },
+
+  displayText: { color: "white", fontSize: 15 },
+
+  firstTextMessage: {
+    paddingVertical: 10,
   },
 });
