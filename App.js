@@ -6,8 +6,9 @@ import { StyleSheet } from "react-native";
 //Screens to Import
 import LandingPage from "./screens/LandingPage";
 import Onboarding from "./components/Onboarding";
+import Signup from "./screens/Signup";
 export default function App() {
-  return <Onboarding />;
+  return <Signup />;
 }
 
 const styles = StyleSheet.create({

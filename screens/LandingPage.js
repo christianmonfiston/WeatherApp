@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native";
 import { Image } from "react-native";
 import { Pressable } from "react-native";
+
 import { TouchableOpacity } from "react-native";
 
 export default function LandingPage() {
@@ -14,16 +15,15 @@ export default function LandingPage() {
             source={require("../images/sunicon.png")}
           />
           <Text style={styles.degreeDisplay}>18&#8451;</Text>
-          <Text style={{ color: "#7B71EC" }}>New York, NY</Text>
+          <Text style={{ color: "#FFB800" }}>New York, NY</Text>
         </View>
         <View style={styles.textDisplay}>
           <View style={styles.firstTextMessage}>
-            <Text style={styles.displayOne}>Know everything</Text>
-            <Text style={styles.displayTwo}>about the weather</Text>
+            <Text style={styles.displayOne}>Cloudly</Text>
           </View>
 
           <Text style={styles.displayText}>Start now and learn more about</Text>
-          <Text style={styles.displayText}>local weather instantly</Text>
+          <Text style={styles.displayText}>local weather instantly.</Text>
         </View>
         <TouchableOpacity style={styles.button}>
           <Pressable>
@@ -31,7 +31,7 @@ export default function LandingPage() {
           </Pressable>
         </TouchableOpacity>
         <View>
-          <Text style={styles.displayText}> Already have an account?</Text>
+          <Text style={styles.displayLowerText}> Already have an account?</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -78,10 +78,10 @@ const styles = StyleSheet.create({
   },
 
   displayOne: {
-    color: "white",
     fontSize: 30,
     fontWeight: "bold",
     padding: 20,
+    color: "#FFB800",
   },
 
   displayTwo: {
@@ -117,7 +117,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 
-  displayText: { color: "white", fontSize: 15 },
+  displayText: { color: "white", fontSize: 20 },
+  displayLowerText: { color: "#FFB800", fontSize: 15, marginTop: 10 },
 
   firstTextMessage: {
     paddingVertical: 10,

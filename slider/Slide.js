@@ -19,7 +19,7 @@ export default [
 
   {
     id: 3,
-    degree: 20,
+    degree: 34,
     location: "Positano, Italy",
     title: "Just your location",
     description: "Put where you are",

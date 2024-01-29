@@ -6,6 +6,7 @@ import { Animated } from "react-native";
 import { useRef, useState } from "react";
 import OnboardingItem from "./OnboardingItem";
 import Slide from "../slider/Slide";
+
 import Paginator from "./Paginator";
 export default function Onboarding() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,7 +19,7 @@ export default function Onboarding() {
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.container}>
         <FlatList
           data={Slide}
           renderItem={({ item }) => <OnboardingItem item={item} />}
@@ -37,6 +38,7 @@ export default function Onboarding() {
           scrollEventThrottle={32}
         />
       </View>
+      <Paginator data={Slide} scrollX={scrollX} />
     </View>
   );
 }
