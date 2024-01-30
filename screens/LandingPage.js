@@ -12,10 +12,10 @@ export default function LandingPage() {
         <View style={styles.card}>
           <Image
             style={styles.image}
-            source={require("../images/sunicon.png")}
+            source={require("../images/WeatherIcon-3.png")}
           />
           <Text style={styles.degreeDisplay}>18&#8451;</Text>
-          <Text style={{ color: "#FFB800" }}>New York, NY</Text>
+          <Text style={{ color: "#7B71EC" }}>New York, NY</Text>
         </View>
         <View style={styles.textDisplay}>
           <View style={styles.firstTextMessage}>
@@ -30,8 +30,9 @@ export default function LandingPage() {
             <Text style={styles.buttonText}>Get Started</Text>
           </Pressable>
         </TouchableOpacity>
-        <View>
-          <Text style={styles.displayLowerText}> Already have an account?</Text>
+        <View style={styles.footer}>
+          <Text style={styles.displayLowerText}>Already have an account? </Text>
+          <Text style={styles.displayLowerTextTwo}>Login</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -53,6 +54,11 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     alignSelf: "center",
+  },
+
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
 
   card: {
@@ -81,7 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     padding: 20,
-    color: "#FFB800",
+    color: "",
   },
 
   displayTwo: {
@@ -91,7 +97,7 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: 100,
+    width: 400,
     height: 100,
   },
 
@@ -117,9 +123,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 
-  displayText: { color: "white", fontSize: 20 },
-  displayLowerText: { color: "#FFB800", fontSize: 15, marginTop: 10 },
-
+  displayText: { color: "white", fontSize: 16 },
+  displayLowerText: { color: "white", fontSize: 15, marginTop: 10 },
+  displayLowerTextTwo: { color: "#7B71EC", fontSize: 15, marginTop: 10 },
   firstTextMessage: {
     paddingVertical: 10,
   },
