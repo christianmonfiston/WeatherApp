@@ -6,6 +6,7 @@ import { ScrollView } from "react-native";
 import { Pressable } from "react-native";
 import { Image } from "react-native";
 import { TouchableOpacity } from "react-native";
+import { TouchableWithoutFeedback } from "react-native";
 const Signup = () => {
   return (
     <SafeAreaView style={styles.container}>

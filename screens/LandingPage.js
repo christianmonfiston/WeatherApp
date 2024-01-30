@@ -4,8 +4,11 @@ import { Image } from "react-native";
 import { Pressable } from "react-native";
 
 import { TouchableOpacity } from "react-native";
-
-export default function LandingPage() {
+import { NavigationAction } from "@react-navigation/native";
+function LandingPage({ navigation }) {
+  function buttonPress() {
+    navigation.navigate("Signup");
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
@@ -25,8 +28,8 @@ export default function LandingPage() {
           <Text style={styles.displayText}>Start now and learn more about</Text>
           <Text style={styles.displayText}>local weather instantly.</Text>
         </View>
-        <TouchableOpacity style={styles.button}>
-          <Pressable>
+        <TouchableOpacity style={styles.button} onPress={buttonPress}>
+          <Pressable onPress={buttonPress}>
             <Text style={styles.buttonText}>Get Started</Text>
           </Pressable>
         </TouchableOpacity>
@@ -39,6 +42,7 @@ export default function LandingPage() {
   );
 }
 
+export default LandingPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
