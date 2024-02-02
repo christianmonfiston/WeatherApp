@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LandingPage from "./screens/LandingPage";
 import Onboarding from "./components/Onboarding";
 import Signup from "./screens/Signup";
+import Home from "./screens/Home";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,12 +25,19 @@ function App() {
           name="Signup"
           component={Signup}
           options={{
-            headerTintColor: "#7B71EC",
+            headerTintColor: "#7B71`EC",
             headerBackTitle: "Back",
             headerTitle: "Sign up",
             headerStyle: {
               backgroundColor: "black",
             },
+          }}
+        />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerShown: false,
           }}
         />
       </Stack.Navigator>

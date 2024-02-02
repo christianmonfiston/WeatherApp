@@ -9,7 +9,11 @@ import { TouchableOpacity } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import { Keyboard } from "react-native";
-const Signup = () => {
+const Signup = ({ navigation }) => {
+  function buttonPress() {
+    navigation.navigate("Home");
+  }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.container}>
@@ -52,7 +56,7 @@ const Signup = () => {
           </View>
           <View>
             <TouchableOpacity style={styles.button}>
-              <Pressable style={styles.button}>
+              <Pressable style={styles.button} onPress={buttonPress}>
                 <Text style={{ color: "black", fontSize: 15 }}> Sign up </Text>
               </Pressable>
             </TouchableOpacity>
