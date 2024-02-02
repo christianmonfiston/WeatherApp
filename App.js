@@ -25,7 +25,7 @@ function App() {
           name="Signup"
           component={Signup}
           options={{
-            headerTintColor: "#7B71`EC",
+            headerTintColor: "#7B71EC",
             headerBackTitle: "Back",
             headerTitle: "Sign up",
             headerStyle: {
@@ -37,7 +37,7 @@ function App() {
           name="Home"
           component={Home}
           options={{
-            headerShown: false,
+            headerShown: true,
           }}
         />
       </Stack.Navigator>
