@@ -1,30 +1,61 @@
-import { StyleSheet, Text, View, TextInput, Keyboard } from "react-native";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  Keyboard,
+  Text,
+  View,
+} from "react-native";
+import { StyleSheet } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
-import Icon from "react-native-ionicons";
-import { IconProps } from "react-native-ionicons";
+import { TextInput } from "react-native";
+import axios from "axios";
+import { SafeAreaView } from "react-native-safe-area-context";
+export const API_KEY = "cbd6b620470d2e828e67c06ecdbcf8a3";
 
-const Home = ({ navigation }) => {
-  const IconBar = () => (
-    <View>
-      <Icon name="search-outline" />
+const Home = () => {
+  const [isLoading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [input, setInput] = useState("");
 
-      <Icon ios="ios-search-outline" android="md-search-outline" />
-    </View>
-  );
+  const api = {
+    key: "9b0d9d947e970792daca2304d5a312be",
+    baseUrl: "http://api.openweathermap.org/data/2.5/",
+  };
+
+  const fetchDataHandler = useCallback(() => {
+    setLoading(true);
+    setInput("");
+    axios({
+      method: "GET",
+      url: `https://api.openweathermap.org/data/2.5/weather?q=${input}&units=metric&appid=${api.key}`,
+    })
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data);
+      })
+      .catch((e) => console.dir(e))
+      .finally(() => setLoading(false));
+  }, [api.key, input]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.container}>
-        <Text style={{ color: "white" }}>Home</Text>
-        <View style={styles.searchBar}>
+      <SafeAreaView style={styles.container}>
+        <View>
           <TextInput
-            placeholder="Enter your location"
+            placeholder="Add location"
+            placeholderTextColor={"white"}
             style={styles.textInput}
+            onSubmitEditing={fetchDataHandler}
           />
-          <IconBar />
+
+          {isLoading && (
+            <View>
+              <ActivityIndicator size={"large"} color={"#7B71EC"} />
+            </View>
+          )}
         </View>
-      </View>
+      </SafeAreaView>
     </TouchableWithoutFeedback>
   );
 };

@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { SafeAreaView } from "react-native";
 import { Text } from "react-native";
 import { StyleSheet } from "react-native";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LandingPage from "./screens/LandingPage";
@@ -37,7 +38,7 @@ function App() {
           name="Home"
           component={Home}
           options={{
-            headerShown: true,
+            headerShown: false,
           }}
         />
       </Stack.Navigator>
