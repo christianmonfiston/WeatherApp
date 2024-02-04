@@ -1,17 +1,28 @@
+import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native";
 import { Text } from "react-native";
 import { StyleSheet } from "react-native";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LandingPage from "./screens/LandingPage";
 import Onboarding from "./components/Onboarding";
 import Signup from "./screens/Signup";
 import Home from "./screens/Home";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+
+const Drawer = createDrawerNavigator();
 
 const Stack = createNativeStackNavigator();
+
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="Homescreen" component={Home} />
+    </Drawer.Navigator>
+  );
+}
 
 function App() {
   return (
@@ -36,7 +47,7 @@ function App() {
         />
         <Stack.Screen
           name="Home"
-          component={Home}
+          component={DrawerNavigator}
           options={{
             headerShown: false,
           }}
