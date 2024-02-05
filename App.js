@@ -19,7 +19,22 @@ const Stack = createNativeStackNavigator();
 function DrawerNavigator() {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name="Homescreen" component={Home} />
+      <Drawer.Screen
+        name="Homescreen"
+        component={Home}
+        options={{
+          title: "Home",
+          headerTintColor: "#7B71EC",
+          drawerStyle: {
+            backgroundColor: "#7B71EC",
+            width: 240,
+          },
+          //headerShown: true,
+          headerStyle: {
+            backgroundColor: "black",
+          },
+        }}
+      />
     </Drawer.Navigator>
   );
 }
@@ -41,7 +56,7 @@ function App() {
             headerBackTitle: "Back",
             headerTitle: "Sign up",
             headerStyle: {
-              backgroundColor: "red",
+              backgroundColor: "black",
             },
           }}
         />

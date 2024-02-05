@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     padding: 20,
-    color: "",
   },
 
   displayTwo: {

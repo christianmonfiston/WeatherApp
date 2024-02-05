@@ -11,12 +11,16 @@ import { TouchableWithoutFeedback } from "react-native";
 import { TextInput } from "react-native";
 import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Image } from "react-native";
+import { Pressable } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 export const API_KEY = "cbd6b620470d2e828e67c06ecdbcf8a3";
 
 const Home = () => {
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [input, setInput] = useState("");
+  const [Weather, setWeather] = useState(true);
 
   const api = {
     key: "9b0d9d947e970792daca2304d5a312be",
@@ -42,13 +46,26 @@ const Home = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.container}>
         <View>
-          <TextInput
-            placeholder="Add location"
-            placeholderTextColor={"white"}
-            style={styles.textInput}
-            onSubmitEditing={fetchDataHandler}
-          />
+          <View style={styles.topDisplay}>
+            <TextInput
+              placeholder="Search city"
+              placeholderTextColor={"white"}
+              style={styles.textInput}
+              onSubmitEditing={fetchDataHandler}
+            />
 
+            <TouchableOpacity
+              style={styles.sendButton}
+              onPress={fetchDataHandler}
+            >
+              <Pressable style={styles.sendButton} onPress={fetchDataHandler}>
+                <Image
+                  source={require("../images/Search.png")}
+                  style={styles.image}
+                />
+              </Pressable>
+            </TouchableOpacity>
+          </View>
           {isLoading && (
             <View>
               <ActivityIndicator size={"large"} color={"#7B71EC"} />
@@ -73,7 +90,7 @@ const styles = StyleSheet.create({
   textInput: {
     borderWidth: 2,
     borderColor: "#7B71EC",
-    width: 300,
+    width: 275,
     height: 60,
     borderRadius: 10,
     justifyContent: "center",
@@ -82,5 +99,30 @@ const styles = StyleSheet.create({
     marginTop: 25,
     color: "white",
     fontSize: 15,
+  },
+
+  sendButton: {
+    width: 75,
+    height: 60,
+    backgroundColor: "white",
+    borderRadius: 10,
+    marginLeft: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+
+  topDisplay: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+  },
+
+  image: {
+    width: 50,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
   },
 });

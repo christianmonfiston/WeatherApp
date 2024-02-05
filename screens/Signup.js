@@ -55,7 +55,7 @@ const Signup = ({ navigation }) => {
             </View>
           </View>
           <View>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={buttonPress}>
               <Pressable style={styles.button} onPress={buttonPress}>
                 <Text style={{ color: "black", fontSize: 15 }}> Sign up </Text>
               </Pressable>
