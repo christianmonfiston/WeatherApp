@@ -41,7 +41,7 @@ function App() {
             headerBackTitle: "Back",
             headerTitle: "Sign up",
             headerStyle: {
-              backgroundColor: "black",
+              backgroundColor: "red",
             },
           }}
         />
