@@ -42,6 +42,8 @@ const Home = () => {
       .finally(() => setLoading(false));
   }, [api.key, input]);
 
+  //test
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.container}>
@@ -66,11 +68,13 @@ const Home = () => {
               </Pressable>
             </TouchableOpacity>
           </View>
-          {isLoading && (
-            <View>
-              <ActivityIndicator size={"large"} color={"#7B71EC"} />
-            </View>
-          )}
+          <View style={styles.loader}>
+            {isLoading && (
+              <View>
+                <ActivityIndicator size={"large"} color={"#7B71EC"} />
+              </View>
+            )}
+          </View>
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -115,7 +119,8 @@ const styles = StyleSheet.create({
   topDisplay: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly",
+    //justifyContent: "space-evenly",
+    paddingBottom: 10,
   },
 
   image: {
@@ -124,5 +129,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
+  },
+
+  loader: {
+    marginVertical: 100,
   },
 });

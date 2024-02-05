@@ -23,6 +23,7 @@ function DrawerNavigator() {
         name="Homescreen"
         component={Home}
         options={{
+          tabBarShowLabel: true,
           title: "Home",
           headerTintColor: "#7B71EC",
           drawerStyle: {
