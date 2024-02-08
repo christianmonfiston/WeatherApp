@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#383567",
     marginTop: 25,
     color: "white",
-    fontSize: 15,
+    fontSize: 16,
   },
 
   sendButton: {
