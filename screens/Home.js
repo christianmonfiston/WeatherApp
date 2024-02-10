@@ -14,13 +14,21 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "react-native";
 import { Pressable } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Alert } from "react-native";
 export const API_KEY = "cbd6b620470d2e828e67c06ecdbcf8a3";
 
+let Davos = "Davos";
 const Home = () => {
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [input, setInput] = useState("");
   const [Weather, setWeather] = useState(true);
+  const [search, setSearch] = useState("");
+  const [isSent, setIsSent] = useState(false);
+  const [display, setDisplay] = useState("");
+  let [temperature, setTemperature] = useState();
+
+  let userText = input;
 
   const api = {
     key: "9b0d9d947e970792daca2304d5a312be",
@@ -28,21 +36,33 @@ const Home = () => {
   };
 
   const fetchDataHandler = useCallback(() => {
+    setIsSent(true);
+
+    if (isSent == true) {
+      setDisplay(input);
+    }
     setLoading(true);
     setInput("");
     axios({
       method: "GET",
-      url: `https://api.openweathermap.org/data/2.5/weather?q=${input}&units=metric&appid=${api.key}`,
+      url: `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${api.key}`,
     })
       .then((res) => {
         console.log(res.data);
         setData(res.data);
+        setTemperature(Math.round(res.data.main.temp - 273.15));
+        console.log(temperature);
       })
       .catch((e) => console.dir(e))
       .finally(() => setLoading(false));
   }, [api.key, input]);
 
   //test
+
+  function onChangeText(onChangeText) {
+    setInput(onChangeText);
+    console.log(input);
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -54,6 +74,7 @@ const Home = () => {
               placeholderTextColor={"white"}
               style={styles.textInput}
               onSubmitEditing={fetchDataHandler}
+              onChangeText={onChangeText}
             />
 
             <TouchableOpacity
@@ -68,12 +89,9 @@ const Home = () => {
               </Pressable>
             </TouchableOpacity>
           </View>
-          <View style={styles.loader}>
-            {isLoading && (
-              <View>
-                <ActivityIndicator size={"large"} color={"#7B71EC"} />
-              </View>
-            )}
+          <View style={styles.displaySearch}>
+            <Text style={styles.displaySearch}>{display}</Text>
+            <Text style={styles.displaySearch}>{temperature}</Text>
           </View>
         </View>
       </SafeAreaView>
@@ -89,6 +107,11 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  displaySearch: {
+    color: "white",
+    fontSize: 40,
   },
 
   textInput: {
