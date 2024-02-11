@@ -18,7 +18,7 @@ function LandingPage({ navigation }) {
             source={require("../images/WeatherIcon-3.png")}
           />
           <Text style={styles.degreeDisplay}>18&#8451;</Text>
-          <Text style={{ color: "#7B71EC" }}>New York, NY</Text>
+          <Text style={{ color: "#c6f432" }}>New York, NY</Text>
         </View>
         <View style={styles.textDisplay}>
           <View style={styles.firstTextMessage}>
@@ -105,11 +105,10 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: "white",
     width: 250,
     height: 50,
     borderRadius: 40,
-    backgroundColor: "#7B71EC",
+    backgroundColor: "#fec4dd",
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
@@ -119,7 +118,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: "white",
+    color: "black",
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",

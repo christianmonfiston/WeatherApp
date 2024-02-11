@@ -9,6 +9,7 @@ import { TouchableOpacity } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import { Keyboard } from "react-native";
+
 const Signup = ({ navigation }) => {
   function buttonPress() {
     navigation.navigate("Home");
@@ -29,35 +30,45 @@ const Signup = ({ navigation }) => {
             </View>
           </View>
           <View style={styles.userDetailsContainer}>
-            <View>
+            <View style={styles.userNameBox}>
               <TextInput
-                placeholder="    Username"
-                placeholderTextColor={"white"}
-                style={styles.userNameBox}
-              />
-            </View>
-            <View>
-              <TextInput
-                placeholder="    Email"
-                placeholderTextColor={"white"}
-                keyboardType="email-address"
-                style={styles.emailBox}
-              />
-            </View>
-            <View>
-              <TextInput
-                placeholder="    Password"
+                placeholder="Username"
                 placeholderTextColor={"white"}
                 selectionColor={"white"}
                 cursorColor={"white"}
-                style={styles.passwordBox}
+                style={styles.userSelect}
+              />
+            </View>
+            <View style={styles.emailBox}>
+              <TextInput
+                placeholder="Email"
+                placeholderTextColor={"white"}
+                keyboardType="email-address"
+                selectionColor={"white"}
+                cursorColor={"white"}
+                style={styles.userSelect}
+              />
+            </View>
+            <View style={styles.passwordBox}>
+              <TextInput
+                placeholder="Password"
+                placeholderTextColor={"white"}
+                selectionColor={"white"}
+                cursorColor={"white"}
+                style={styles.userSelect}
               />
             </View>
           </View>
           <View>
             <TouchableOpacity style={styles.button} onPress={buttonPress}>
               <Pressable style={styles.button} onPress={buttonPress}>
-                <Text style={{ color: "black", fontSize: 15 }}> Sign up </Text>
+                <View style={styles.signupDisplay}>
+                  <Text style={{ color: "black", fontSize: 15 }}>Sign up </Text>
+                  <Image
+                    style={styles.imageArrow}
+                    source={require("../images/Arrow.png")}
+                  />
+                </View>
               </Pressable>
             </TouchableOpacity>
           </View>
@@ -159,7 +170,7 @@ const styles = StyleSheet.create({
   button: {
     width: 300,
     height: 50,
-    backgroundColor: "white",
+    backgroundColor: "#fec4dd",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
@@ -174,5 +185,28 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignSelf: "center",
+  },
+
+  signupDisplay: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginHorizontal: 100,
+    left: 25,
+  },
+
+  imageArrow: {
+    width: 100,
+    height: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    alignContent: "center",
+    alignSelf: "center",
+  },
+
+  userSelect: {
+    width: 300,
+    height: 60,
+    left: 20,
+    color: "white",
   },
 });

@@ -15,6 +15,8 @@ import { Image } from "react-native";
 import { Pressable } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Alert } from "react-native";
+import { Modal } from "react-native";
+import { ScrollView } from "react-native";
 export const API_KEY = "cbd6b620470d2e828e67c06ecdbcf8a3";
 
 let Davos = "Davos";
@@ -26,7 +28,13 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [isSent, setIsSent] = useState(false);
   const [display, setDisplay] = useState("");
+  ///Data info
+  let [feel, setFeel] = useState();
+  let [humidity, setHumidity] = useState();
   let [temperature, setTemperature] = useState();
+  let [clouds, setClouds] = useState();
+  let [name, setName] = useState();
+  const [isModalVisible, setIsModalVisble] = useState(false);
 
   let userText = input;
 
@@ -37,6 +45,7 @@ const Home = () => {
 
   const fetchDataHandler = useCallback(() => {
     setIsSent(true);
+    setIsModalVisble(true);
 
     if (isSent == true) {
       setDisplay(input);
@@ -52,6 +61,13 @@ const Home = () => {
         setData(res.data);
         setTemperature(Math.round(res.data.main.temp - 273.15));
         console.log(temperature);
+
+        //get Humidity
+        setHumidity(res.data.main.feels_like);
+        console.log(humidity);
+
+        //get feels Like
+        setFeel(Math.round(res.data.main.feels_like - 273.15));
       })
       .catch((e) => console.dir(e))
       .finally(() => setLoading(false));
@@ -68,14 +84,19 @@ const Home = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.container}>
         <View>
+          <View style={styles.displaySearch}>
+            <Text style={styles.displayText}>{display}</Text>
+          </View>
           <View style={styles.topDisplay}>
-            <TextInput
-              placeholder="Search city"
-              placeholderTextColor={"white"}
-              style={styles.textInput}
-              onSubmitEditing={fetchDataHandler}
-              onChangeText={onChangeText}
-            />
+            <View style={styles.textInput}>
+              <TextInput
+                placeholder="Search city or country"
+                placeholderTextColor={"white"}
+                style={styles.userSelect}
+                onSubmitEditing={fetchDataHandler}
+                onChangeText={onChangeText}
+              />
+            </View>
 
             <TouchableOpacity
               style={styles.sendButton}
@@ -89,9 +110,22 @@ const Home = () => {
               </Pressable>
             </TouchableOpacity>
           </View>
-          <View style={styles.displaySearch}>
-            <Text style={styles.displaySearch}>{display}</Text>
-            <Text style={styles.displaySearch}>{temperature}</Text>
+
+          <View style={styles.Cards}>
+            <View categoryTwo>
+              <View style={styles.displayCardOne}>
+                <Text style={styles.textInfo}>{temperature}°C</Text>
+              </View>
+            </View>
+
+            <View style={styles.categoryTwo}>
+              <View style={styles.displayCardTwo}>
+                <Text style={styles.textInfo}>{feel}</Text>
+              </View>
+              <View style={styles.displayCardThree}>
+                <Text style={styles.textInfo}>{humidity}</Text>
+              </View>
+            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -110,10 +144,27 @@ const styles = StyleSheet.create({
   },
 
   displaySearch: {
-    color: "white",
-    fontSize: 40,
+    color: "black",
+    fontSize: 50,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    // marginBottom: 5,
+    textDecorationLine: "underline",
+    textDecorationColor: "#c6f432",
+    width: 200,
+    height: 45,
+    backgroundColor: "black",
+    borderRadius: 200,
+    borderWidth: 1,
+    borderColor: "#fec4dd",
   },
 
+  displayText: {
+    fontSize: 15,
+    color: "#fec4dd",
+  },
   textInput: {
     borderWidth: 2,
     borderColor: "#7B71EC",
@@ -156,5 +207,75 @@ const styles = StyleSheet.create({
 
   loader: {
     marginVertical: 100,
+  },
+
+  userSelect: {
+    width: 300,
+    height: 60,
+    left: 20,
+    color: "white",
+  },
+
+  bottomSheet: {
+    width: 200,
+    height: 10,
+    backgroundColor: "pink",
+  },
+
+  Cards: {
+    flexDirection: "row",
+  },
+  displayCardOne: {
+    width: 190,
+    height: 300,
+    backgroundColor: "#fec4dd",
+    borderRadius: 25,
+    marginRight: 10,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+  },
+
+  displayCardTwo: {
+    width: 160,
+    height: 140,
+    backgroundColor: "#c6f432",
+    borderRadius: 25,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+  },
+
+  displayCardThree: {
+    width: 160,
+    height: 140,
+    backgroundColor: "#7B71EC",
+    borderRadius: 25,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+  },
+
+  categoryTwo: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+
+  colors: {
+    backgroundColor: "#c6f432", //light gren
+    backgroundColor: "#7B71EC", //purple
+    backgroundColor: "#fec4dd", //pink
+  },
+
+  textInfo: {
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    fontSize: 25,
+    fontWeight: "bold",
   },
 });
