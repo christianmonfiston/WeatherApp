@@ -17,10 +17,22 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Alert } from "react-native";
 import { Modal } from "react-native";
 import { ScrollView } from "react-native";
+
+//API KEY
 export const API_KEY = "cbd6b620470d2e828e67c06ecdbcf8a3";
 
-let Davos = "Davos";
+//More Weather Data
+const Item = ({ item, onPress, backgroundColor, textColor }) => (
+  <TouchableOpacity
+    onPress={onPress}
+    style={[styles.item, { backgroundColor }]}
+  >
+    <Text style={[styles.title, { color: textColor }]}>{item.title}</Text>
+  </TouchableOpacity>
+);
+
 const Home = () => {
+  const [selectedId, setSelectedId] = useState();
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [input, setInput] = useState("");
@@ -35,23 +47,59 @@ const Home = () => {
   let [clouds, setClouds] = useState();
   let [name, setName] = useState();
   const [isModalVisible, setIsModalVisble] = useState(false);
-
   let userText = input;
+  //Show/ Not SHow ui
 
+  let [show, setShow] = useState(false);
   const api = {
     key: "9b0d9d947e970792daca2304d5a312be",
     baseUrl: "http://api.openweathermap.org/data/2.5/",
   };
 
+  function RenderInfoUI() {
+    return (
+      <View>
+        <Text style={{ fontSize: 100 }}>Working</Text>
+      </View>
+    );
+  }
+  DATA = [
+    {
+      id: 1,
+      title: temperature,
+    },
+    {
+      id: 2,
+      title: temperature,
+    },
+    {
+      id: 3,
+      title: temperature,
+    },
+    {
+      id: 4,
+      title: temperature,
+    },
+    {
+      id: 5,
+      title: temperature,
+    },
+    {
+      id: 6,
+      title: temperature,
+    },
+  ];
   const fetchDataHandler = useCallback(() => {
     setIsSent(true);
     setIsModalVisble(true);
+    setShow(true);
 
     if (isSent == true) {
       setDisplay(input);
     }
     setLoading(true);
     setInput("");
+
     axios({
       method: "GET",
       url: `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${api.key}`,
@@ -68,24 +116,40 @@ const Home = () => {
 
         //get feels Like
         setFeel(Math.round(res.data.main.feels_like - 273.15));
+
+        //Get What the user type
+
+        setSearch(res.data.name);
+        console.log(search);
       })
       .catch((e) => console.dir(e))
       .finally(() => setLoading(false));
   }, [api.key, input]);
-
-  //test
 
   function onChangeText(onChangeText) {
     setInput(onChangeText);
     console.log(input);
   }
 
+  const renderItem = ({ item }) => {
+    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
+    const color = item.id === selectedId ? "white" : "black";
+
+    return (
+      <Item
+        item={item}
+        onPress={() => setSelectedId(item.id)}
+        backgroundColor={backgroundColor}
+        textColor={color}
+      />
+    );
+  };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.container}>
         <View>
           <View style={styles.displaySearch}>
-            <Text style={styles.displayText}>{display}</Text>
+            <Text style={styles.displayText}>{search}</Text>
           </View>
           <View style={styles.topDisplay}>
             <View style={styles.textInput}>
@@ -114,15 +178,18 @@ const Home = () => {
           <View style={styles.Cards}>
             <View categoryTwo>
               <View style={styles.displayCardOne}>
+                <Text style={{ fontSize: 30 }}>Temperature:</Text>
                 <Text style={styles.textInfo}>{temperature}°C</Text>
               </View>
             </View>
 
             <View style={styles.categoryTwo}>
               <View style={styles.displayCardTwo}>
+                <Text style={{ fontSize: 15 }}>How it feels:</Text>
                 <Text style={styles.textInfo}>{feel}</Text>
               </View>
               <View style={styles.displayCardThree}>
+                <Text style={{ fontSize: 30 }}>Humidity:</Text>
                 <Text style={styles.textInfo}>{humidity}</Text>
               </View>
             </View>
@@ -277,5 +344,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 25,
     fontWeight: "bold",
+  },
+
+  item: {
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
   },
 });

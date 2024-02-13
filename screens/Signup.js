@@ -9,10 +9,18 @@ import { TouchableOpacity } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import { Keyboard } from "react-native";
+import { useState } from "react";
+import { Alert } from "react-native";
 
 const Signup = ({ navigation }) => {
+  let [userName, setUsername] = useState();
   function buttonPress() {
     navigation.navigate("Home");
+  }
+
+  function onChangeText(onChangeText) {
+    setUsername(onChangeText);
+    console.log(userName);
   }
 
   return (
@@ -37,6 +45,7 @@ const Signup = ({ navigation }) => {
                 selectionColor={"white"}
                 cursorColor={"white"}
                 style={styles.userSelect}
+                onChangeText={onChangeText}
               />
             </View>
             <View style={styles.emailBox}>
