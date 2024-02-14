@@ -14,6 +14,8 @@ import { Alert } from "react-native";
 
 const Signup = ({ navigation }) => {
   let [userName, setUsername] = useState();
+  let [password, setPassword] = useState();
+
   function buttonPress() {
     navigation.navigate("Home");
   }
