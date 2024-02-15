@@ -178,18 +178,22 @@ const Home = () => {
           <View style={styles.Cards}>
             <View categoryTwo>
               <View style={styles.displayCardOne}>
-                <Text style={{ fontSize: 30 }}>Temperature:</Text>
+                <Text style={{ fontSize: 30, color: "white" }}>
+                  Temperature:
+                </Text>
                 <Text style={styles.textInfo}>{temperature}°C</Text>
               </View>
             </View>
 
             <View style={styles.categoryTwo}>
               <View style={styles.displayCardTwo}>
-                <Text style={{ fontSize: 15 }}>How it feels:</Text>
+                <Text style={{ fontSize: 15, color: "white" }}>
+                  How it feels:
+                </Text>
                 <Text style={styles.textInfo}>{feel}</Text>
               </View>
               <View style={styles.displayCardThree}>
-                <Text style={{ fontSize: 30 }}>Humidity:</Text>
+                <Text style={{ fontSize: 30, color: "white" }}>Humidity:</Text>
                 <Text style={styles.textInfo}>{humidity}</Text>
               </View>
             </View>
@@ -295,7 +299,7 @@ const styles = StyleSheet.create({
   displayCardOne: {
     width: 190,
     height: 300,
-    backgroundColor: "#fec4dd",
+    backgroundColor: "#0084ff",
     borderRadius: 25,
     marginRight: 10,
     justifyContent: "center",
@@ -307,7 +311,7 @@ const styles = StyleSheet.create({
   displayCardTwo: {
     width: 160,
     height: 140,
-    backgroundColor: "#c6f432",
+    backgroundColor: "#ff6a00",
     borderRadius: 25,
     justifyContent: "center",
     alignContent: "center",
@@ -318,7 +322,7 @@ const styles = StyleSheet.create({
   displayCardThree: {
     width: 160,
     height: 140,
-    backgroundColor: "#7B71EC",
+    backgroundColor: "#00ff84",
     borderRadius: 25,
     justifyContent: "center",
     alignContent: "center",
@@ -335,6 +339,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#c6f432", //light gren
     backgroundColor: "#7B71EC", //purple
     backgroundColor: "#fec4dd", //pink
+    backgroundColor: "#0084ff", //blue
+    backgroundColor: "#ff6a00", //orange
+    backgroundColor: "#00ff84", //pale green
   },
 
   textInfo: {

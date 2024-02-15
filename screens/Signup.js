@@ -1,115 +1,143 @@
-import { StyleSheet, Text, View } from "react-native";
-import { TextInput } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Keyboard,
+  Alert,
+} from "react-native";
 import { SafeAreaView } from "react-native";
-import { ScrollView } from "react-native";
-import { Pressable } from "react-native";
-import { Image } from "react-native";
-import { TouchableOpacity } from "react-native";
-import { TouchableWithoutFeedback } from "react-native";
-import { KeyboardAvoidingView } from "react-native";
-import { Keyboard } from "react-native";
-import { useState } from "react";
-import { Alert } from "react-native";
+import { FIREBASE_AUTH } from "../components/FirebaseConfig";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 
 const Signup = ({ navigation }) => {
-  let [userName, setUsername] = useState();
-  let [password, setPassword] = useState();
+  const [userName, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  function buttonPress() {
+  const auth = FIREBASE_AUTH;
+
+  const onChangeText = (key, value) => {
+    if (key === "username") setUsername(value);
+    else if (key === "email") setEmail(value);
+    else if (key === "password") setPassword(value);
+  };
+
+  const signIn = async () => {
+    setLoading(true);
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      console.log(response);
+      Alert.alert("Check your email");
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const signUp = async () => {
+    setLoading(true);
+    try {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(response);
+      Alert.alert("Check your email");
+    } catch (error) {
+      console.log(error);
+      //Alert.alert("Account creation failed");
+      if (error) {
+        setErrorMessage(FirebaseError.Firebase);
+        Alert.alert("Password should be at least 6 characters");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const buttonPress = () => {
+    // signUp();
+    signIn();
     navigation.navigate("Home");
-  }
-
-  function onChangeText(onChangeText) {
-    setUsername(onChangeText);
-    console.log(userName);
-  }
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.container}>
-        <View style={styles.container}>
-          <View style={styles.title}>
-            <Image
-              style={styles.image}
-              source={require("../images/WeatherIcon-1.png")}
-            />
-            <View style={styles.subtitle}>
-              <Text style={styles.title}>Create your account </Text>
-              <Text style={styles.titleTwo}>!</Text>
-            </View>
-          </View>
-          <View style={styles.userDetailsContainer}>
-            <View style={styles.userNameBox}>
-              <TextInput
-                placeholder="Username"
-                placeholderTextColor={"white"}
-                selectionColor={"white"}
-                cursorColor={"white"}
-                style={styles.userSelect}
-                onChangeText={onChangeText}
+        <KeyboardAvoidingView behavior="position">
+          <View style={styles.container}>
+            <View style={styles.title}>
+              <Image
+                style={styles.image}
+                source={require("../images/WeatherIcon-1.png")}
               />
+              <View style={styles.subtitle}>
+                <Text style={styles.titleText}>Create your account </Text>
+                <Text style={styles.titleTextTwo}>!</Text>
+              </View>
             </View>
-            <View style={styles.emailBox}>
-              <TextInput
-                placeholder="Email"
-                placeholderTextColor={"white"}
-                keyboardType="email-address"
-                selectionColor={"white"}
-                cursorColor={"white"}
-                style={styles.userSelect}
-              />
+            <View style={styles.userDetailsContainer}>
+              <View style={styles.emailBox}>
+                <TextInput
+                  placeholder="Email"
+                  placeholderTextColor={"white"}
+                  keyboardType="email-address"
+                  selectionColor={"white"}
+                  cursorColor={"white"}
+                  style={styles.userSelect}
+                  onChangeText={(text) => onChangeText("email", text)}
+                />
+              </View>
+              <View style={styles.passwordBox}>
+                <TextInput
+                  placeholder="Password"
+                  placeholderTextColor={"white"}
+                  selectionColor={"white"}
+                  cursorColor={"white"}
+                  style={styles.userSelect}
+                  secureTextEntry
+                  onChangeText={(text) => onChangeText("password", text)}
+                />
+              </View>
             </View>
-            <View style={styles.passwordBox}>
-              <TextInput
-                placeholder="Password"
-                placeholderTextColor={"white"}
-                selectionColor={"white"}
-                cursorColor={"white"}
-                style={styles.userSelect}
-              />
-            </View>
-          </View>
-          <View>
-            <TouchableOpacity style={styles.button} onPress={buttonPress}>
-              <Pressable style={styles.button} onPress={buttonPress}>
+            <View>
+              <TouchableOpacity style={styles.button} onPress={buttonPress}>
                 <View style={styles.signupDisplay}>
-                  <Text style={{ color: "black", fontSize: 15 }}>Sign up </Text>
+                  <Text style={{ color: "#7B71EC", fontSize: 15 }}>
+                    Sign up{" "}
+                  </Text>
                   <Image
                     style={styles.imageArrow}
                     source={require("../images/Arrow.png")}
                   />
                 </View>
-              </Pressable>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <Text style={styles.termsText}>
+                By continuing, I accept Cloudly's
+              </Text>
+              <Text style={styles.termsLinkText}>
+                Terms of Service and Privacy Policy
+              </Text>
+            </View>
           </View>
-          <View>
-            <Text
-              style={{
-                color: "white",
-                fontSize: 15,
-                justifyContent: "center",
-                alignContent: "center",
-                alignItems: "center",
-                alignSelf: "center",
-              }}
-            >
-              By continuing, I accept Cloudly's
-            </Text>
-            <Text
-              style={{
-                color: "#7B71EC",
-                fontSize: 15,
-                justifyContent: "center",
-                alignContent: "center",
-                alignItems: "center",
-                alignSelf: "center",
-              }}
-            >
-              Terms of Service and Privacy Policy
-            </Text>
-          </View>
-        </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
@@ -124,23 +152,32 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
-  userDetailsContainer: {
-    margin: 10,
-    flexDirection: "column",
-  },
   title: {
     color: "white",
     fontSize: 25,
   },
-
-  titleTwo: {
+  subtitle: {
+    flexDirection: "row",
+  },
+  titleText: {
+    color: "white",
+    fontSize: 25,
+  },
+  titleTextTwo: {
     color: "#7B71EC",
     fontSize: 25,
   },
-
-  subtitle: {
-    flexDirection: "row",
+  image: {
+    width: 200,
+    height: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    alignContent: "center",
+    alignSelf: "center",
+  },
+  userDetailsContainer: {
+    margin: 10,
+    flexDirection: "column",
   },
   userNameBox: {
     borderWidth: 2,
@@ -177,34 +214,22 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontSize: 15,
   },
-
   button: {
     width: 300,
     height: 50,
-    backgroundColor: "#fec4dd",
+    backgroundColor: "white",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 25,
     marginTop: 40,
   },
-
-  image: {
-    width: 200,
-    height: 100,
-    alignItems: "center",
-    justifyContent: "center",
-    alignContent: "center",
-    alignSelf: "center",
-  },
-
   signupDisplay: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginHorizontal: 100,
     left: 25,
   },
-
   imageArrow: {
     width: 100,
     height: 10,
@@ -213,11 +238,25 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignSelf: "center",
   },
-
   userSelect: {
     width: 300,
     height: 60,
     left: 20,
     color: "white",
+  },
+  termsText: {
+    color: "white",
+    fontSize: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    marginBottom: 5,
+  },
+  termsLinkText: {
+    color: "#7B71EC",
+    fontSize: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
   },
 });
