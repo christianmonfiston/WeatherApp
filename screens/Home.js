@@ -13,7 +13,7 @@ import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "react-native";
 import { Pressable } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import { Alert } from "react-native";
 import { Modal } from "react-native";
 import { ScrollView } from "react-native";
@@ -148,13 +148,16 @@ const Home = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.container}>
         <View>
-          <View style={styles.displaySearch}>
-            <Text style={styles.displayText}>{search}</Text>
-          </View>
+          <Image
+            style={styles.imageStyle}
+            source={require("../images/Cloud.png")}
+          />
+        </View>
+        <View>
           <View style={styles.topDisplay}>
             <View style={styles.textInput}>
               <TextInput
-                placeholder="Search city or country"
+                placeholder="Search city or country!"
                 placeholderTextColor={"white"}
                 style={styles.userSelect}
                 onSubmitEditing={fetchDataHandler}
@@ -182,6 +185,18 @@ const Home = () => {
                   Temperature:
                 </Text>
                 <Text style={styles.textInfo}>{temperature}°C</Text>
+                <Image
+                  style={{
+                    width: 300,
+                    height: 200,
+                    left: 20,
+                    justifyContent: "center",
+                    alignContent: "center",
+                    alignItems: "center",
+                    alignSelf: "center",
+                  }}
+                  source={require("../images/Thermometer.png")}
+                />
               </View>
             </View>
 
@@ -212,6 +227,11 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  imageStyle: {
+    width: 250,
+    height: 100,
   },
 
   displaySearch: {
@@ -299,7 +319,7 @@ const styles = StyleSheet.create({
   displayCardOne: {
     width: 190,
     height: 300,
-    backgroundColor: "#0084ff",
+    backgroundColor: "white",
     borderRadius: 25,
     marginRight: 10,
     justifyContent: "center",

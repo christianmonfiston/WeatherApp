@@ -1,4 +1,3 @@
-import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native";
@@ -10,35 +9,10 @@ import LandingPage from "./screens/LandingPage";
 import Onboarding from "./components/Onboarding";
 import Signup from "./screens/Signup";
 import Home from "./screens/Home";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 
-const Drawer = createDrawerNavigator();
+import Login from "./screens/Login";
 
 const Stack = createNativeStackNavigator();
-
-function DrawerNavigator() {
-  return (
-    <Drawer.Navigator>
-      <Drawer.Screen
-        name="Homescreen"
-        component={Home}
-        options={{
-          tabBarShowLabel: true,
-          title: "Home",
-          headerTintColor: "#7B71EC",
-          drawerStyle: {
-            backgroundColor: "#7B71EC",
-            width: 240,
-          },
-          //headerShown: true,
-          headerStyle: {
-            backgroundColor: "black",
-          },
-        }}
-      />
-    </Drawer.Navigator>
-  );
-}
 
 function App() {
   return (
@@ -50,12 +24,24 @@ function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerTintColor: "#7B71EC",
+            headerBackTitle: "Back",
+            headerTitle: "",
+            headerStyle: {
+              backgroundColor: "black",
+            },
+          }}
+        />
+        <Stack.Screen
           name="Signup"
           component={Signup}
           options={{
             headerTintColor: "#7B71EC",
             headerBackTitle: "Back",
-            headerTitle: "Sign up",
+            headerTitle: "",
             headerStyle: {
               backgroundColor: "black",
             },
@@ -63,7 +49,7 @@ function App() {
         />
         <Stack.Screen
           name="Home"
-          component={DrawerNavigator}
+          component={Home}
           options={{
             headerShown: false,
           }}

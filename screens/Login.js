@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   Alert,
+  Pressable,
 } from "react-native";
 import { SafeAreaView } from "react-native";
 import { FIREBASE_AUTH } from "../components/FirebaseConfig";
@@ -19,44 +20,40 @@ import {
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
-const Signup = ({ navigation }) => {
-  const [userName, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+const Login = ({ navigation }) => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [successful, setSuccessful] = useState(false);
 
   const auth = FIREBASE_AUTH;
 
-  const onChangeText = (key, value) => {
-    if (key === "username") setUsername(value);
-    else if (key === "email") setEmail(value);
-    else if (key === "password") setPassword(value);
-  };
-
-  const signUp = async () => {
-    setLoading(true);
+  const signIn = async () => {
     try {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const response = await signInWithEmailAndPassword(auth, email, password);
       console.log(response);
-      //Alert.alert("Check your email");
     } catch (error) {
-      //console.log(error);
-      //Alert.alert("Account creation failed");
+      console.log(error);
+      if (error == true) {
+        setSuccessful(false);
+      } else {
+        setSuccessful(true);
+      }
     } finally {
-      setLoading(false);
+      setSuccessful(true);
     }
   };
 
-  const buttonPress = () => {
-    signUp();
-
-    navigation.navigate("Home");
+  const onChangeText = (key, value) => {
+    if (key === "email") setEmail(value);
+    else if (key === "password") setPassword(value);
   };
+  function buttonPress() {
+    signIn();
+    if (successful == true) {
+      signIn();
+      navigation.navigate("Home");
+    }
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -66,11 +63,11 @@ const Signup = ({ navigation }) => {
             <View style={styles.title}>
               <Image
                 style={styles.image}
-                source={require("../images/Sleepycloud (2).png")}
+                source={require("../images/WeatherIcon-4.png")}
               />
               <View style={styles.subtitle}>
-                <Text style={styles.titleText}>Create your </Text>
-                <Text style={styles.titleTextTwo}>account!</Text>
+                <Text style={styles.titleText}>We love to have you</Text>
+                <Text style={styles.titleTextTwo}> back!</Text>
               </View>
             </View>
             <View style={styles.userDetailsContainer}>
@@ -100,13 +97,7 @@ const Signup = ({ navigation }) => {
             <View>
               <TouchableOpacity style={styles.button} onPress={buttonPress}>
                 <View style={styles.signupDisplay}>
-                  <Text style={{ color: "#7B71EC", fontSize: 15 }}>
-                    Sign up
-                  </Text>
-                  <Image
-                    style={styles.imageArrow}
-                    source={require("../images/NewArrow.png")}
-                  />
+                  <Text style={{ color: "white", fontSize: 15 }}>Log In</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -125,7 +116,7 @@ const Signup = ({ navigation }) => {
   );
 };
 
-export default Signup;
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
@@ -140,7 +131,6 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     flexDirection: "row",
-    justifyContent: "center",
   },
   titleText: {
     color: "white",
@@ -151,8 +141,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   image: {
-    width: 400,
-    height: 150,
+    width: 200,
+    height: 100,
     alignItems: "center",
     justifyContent: "center",
     alignContent: "center",
@@ -200,7 +190,7 @@ const styles = StyleSheet.create({
   button: {
     width: 300,
     height: 50,
-    backgroundColor: "white",
+    backgroundColor: "#7B71EC",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
@@ -209,9 +199,10 @@ const styles = StyleSheet.create({
   },
   signupDisplay: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     marginHorizontal: 100,
-    left: 25,
+    alignContent: "center",
+    alignItems: "center",
   },
   imageArrow: {
     width: 100,

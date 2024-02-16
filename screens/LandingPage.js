@@ -9,13 +9,18 @@ function LandingPage({ navigation }) {
   function buttonPress() {
     navigation.navigate("Signup");
   }
+
+  function LoginPress() {
+    navigation.navigate("Login");
+    console.log("Login has been pressed");
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <View style={styles.card}>
           <Image
             style={styles.image}
-            source={require("../images/WeatherIcon-3.png")}
+            source={require("../images/HappyCloud.png")}
           />
           <Text style={styles.degreeDisplay}>18&#8451;</Text>
           <Text style={{ color: "white" }}>New York, NY</Text>
@@ -26,7 +31,7 @@ function LandingPage({ navigation }) {
           </View>
 
           <Text style={styles.displayText}>Start now and learn more about</Text>
-          <Text style={styles.displayText}>local weather instantly.</Text>
+          <Text style={styles.displayTextTwo}>the weather anywhere!</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={buttonPress}>
           <Pressable onPress={buttonPress}>
@@ -35,7 +40,11 @@ function LandingPage({ navigation }) {
         </TouchableOpacity>
         <View style={styles.footer}>
           <Text style={styles.displayLowerText}>Already have an account? </Text>
-          <Text style={styles.displayLowerTextTwo}>Login</Text>
+          <TouchableOpacity onPress={LoginPress}>
+            <Pressable onPress={LoginPress}>
+              <Text style={styles.displayLowerTextTwo}>Login</Text>
+            </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
@@ -101,7 +110,7 @@ const styles = StyleSheet.create({
 
   image: {
     width: 400,
-    height: 100,
+    height: 150,
   },
 
   button: {
@@ -126,6 +135,8 @@ const styles = StyleSheet.create({
   },
 
   displayText: { color: "white", fontSize: 16 },
+
+  displayTextTwo: { color: "#7B71EC", fontSize: 16 },
   displayLowerText: { color: "white", fontSize: 15, marginTop: 10 },
   displayLowerTextTwo: { color: "#7B71EC", fontSize: 15, marginTop: 10 },
   firstTextMessage: {
