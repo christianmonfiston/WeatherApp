@@ -17,6 +17,7 @@ import { TouchableOpacity } from "react-native";
 import { Alert } from "react-native";
 import { Modal } from "react-native";
 import { ScrollView } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 //API KEY
 export const API_KEY = "cbd6b620470d2e828e67c06ecdbcf8a3";
@@ -146,6 +147,7 @@ const Home = () => {
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+     
       <SafeAreaView style={styles.container}>
         <View>
           <Image
@@ -157,7 +159,7 @@ const Home = () => {
           <View style={styles.topDisplay}>
             <View style={styles.textInput}>
               <TextInput
-                placeholder="Search city or country!"
+                placeholder="Search city or country!!"
                 placeholderTextColor={"white"}
                 style={styles.userSelect}
                 onSubmitEditing={fetchDataHandler}

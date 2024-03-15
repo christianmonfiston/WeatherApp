@@ -16,6 +16,8 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
+    <>
+    <StatusBar style="auto"/>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
@@ -56,6 +58,7 @@ function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </>
   );
 }
 
