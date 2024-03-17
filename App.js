@@ -9,7 +9,7 @@ import LandingPage from "./screens/LandingPage";
 import Onboarding from "./components/Onboarding";
 import Signup from "./screens/Signup";
 import Home from "./screens/Home";
-
+import Chat from "./screens/Chat";
 import Login from "./screens/Login";
 
 const Stack = createNativeStackNavigator();
